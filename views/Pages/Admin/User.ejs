@@ -1,0 +1,85 @@
+<%- include('../../Partials/Header.ejs') %>
+<div class="w-300 ms-300">
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <%- include('../../Partials/Aside.ejs') %>
+            <div class="layout-page">
+                <%- include('../../Partials/Nav.ejs') %>
+                <div class="content-wrapper">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Users/</span> View Users</h4>
+                        <div class="row">
+                            <div class="col-xl">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <table class="table table-responsive table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-start">Username</th>
+                                                    <th class="text-start">Email</th>
+                                                    <th class="text-center">Role_ID</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if(data && data.length > 0) { %>
+                                                    <% data.forEach((item, id) => { %>
+                                                        <% if(item.roll_id == 3) { %>
+                                                            <tr>
+                                                                <td class="p-2 ps-4"><%= item.username %></td>
+                                                                <td class="p-2 ps-4"><%= item.email %></td>
+                                                                <td class="p-2 text-center"><%= item.roll_id %></td>
+                                                                <td class="d-flex p-2 justify-content-center">
+                                                                    <form id="promoteForm-<%= item._id %>" action="/promote/<%= item._id %>" method="POST" style="display:none;">
+                                                                    </form>
+                                                                    <button type="button" class="btn btn-primary me-2" onclick="confirmPromotion('<%= item._id %>')">Promote</button>
+                                                                </td>
+                                                            </tr>
+                                                        <% } %>
+                                                    <% }) %>
+                                                <% } else { %>
+                                                    <tr>
+                                                        <td colspan="5" class="text-center">No User Found!</td>
+                                                    </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%- include('../../Partials/Footer.ejs') %>
+                    <div class="content-backdrop fade"></div>
+                </div>
+            </div>
+            <div class="layout-overlay layout-menu-toggle"></div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/libs/jquery/jquery.js"></script>
+<script src="../assets/vendor/libs/popper/popper.js"></script>
+<script src="../assets/vendor/js/bootstrap.js"></script>
+<script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="../assets/vendor/js/menu.js"></script>
+<script src="../assets/js/main.js"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script>
+    function confirmPromotion(userId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You are about to promote this user to manager!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#8789ff',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, promote!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(`promoteForm-${userId}`).submit();
+            }
+        })
+    }
+</script>
+</body>
+</html>

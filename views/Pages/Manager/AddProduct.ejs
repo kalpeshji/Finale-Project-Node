@@ -1,0 +1,176 @@
+<%- include('../../Partials/Header.ejs') %>
+    <div class="w-300 ms-300">
+        <!-- Layout wrapper -->
+        <div class="layout-wrapper layout-content-navbar">
+            <div class="layout-container">
+                <!-- Menu -->
+                <%- include('../../Partials/Asides.ejs') %>
+                    <!-- / Menu -->
+
+                    <!-- Layout container -->
+                    <div class="layout-page">
+                        <!-- Navbar -->
+                        <%- include('../../Partials/NavBar.ejs') %>
+
+
+                            <!-- / Navbar -->
+
+                            <!-- Content wrapper -->
+                            <div class="content-wrapper">
+                                <!-- Content -->
+
+                                <div class="container-xxl flex-grow-1 container-p-y">
+                                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Products
+                                            /</span> Add Product</h4>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card mb-4">
+                                                <h5 class="card-header">Product Details</h5>
+                                                <!-- Account -->
+                                                <div class="card-body">
+                                                    <form action="/adproduct" method="post" id="Add"
+                                                        enctype="multipart/form-data">
+                                                        <p id="error" class="mb-4 mt-2 text-center text-danger"></p>
+                                                        <label class="form-label"
+                                                            for="basic-icon-default-fullname">Product Image</label>
+                                                        <div
+                                                            class="d-flex align-items-start align-items-sm-center gap-4 border mb-3 p-3 rounded-2 ">
+                                                            <img src="../../Public/assets/img/avatars/demo.jpg"
+                                                                name="uploadImage" alt="Product Image"
+                                                                class="d-block rounded" height="100" width="100"
+                                                                id="uploadedAvatar" />
+                                                            <div class="button-wrapper">
+                                                                <label for="upload" class="btn btn-primary me-2 mb-4"
+                                                                    tabindex="0">
+                                                                    <span class="d-none d-sm-block">Upload Image</span>
+                                                                    <i class="bx bx-upload d-block d-sm-none"></i>
+                                                                    <input type="file" id="upload"
+                                                                        class="account-file-input" hidden
+                                                                        name="uploadImage"
+                                                                        accept="image/png, image/jpeg" />
+                                                                </label>
+                                                                <!-- <button type="button"
+                                                                class="btn btn-outline-secondary account-image-reset mb-4">
+                                                                <i class="bx bx-reset d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">Reset</span>
+                                                            </button> -->
+
+                                                                <p class="text-muted mb-0">Allowed JPG or PNG.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label"
+                                                                for="basic-icon-default-fullname">Name</label>
+                                                            <div class="input-group input-group-merge">
+                                                                <input type="text" class="form-control"
+                                                                    id="name" placeholder="Name"
+                                                                    aria-label="Name" name="name"
+                                                                    aria-describedby="basic-icon-default-fullname2" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label"
+                                                                for="basic-icon-default-fulname">Description</label>
+                                                            <div class="input-group input-group-merge">
+                                                                <input type="text" class="form-control"
+                                                                    id="dsc"
+                                                                    placeholder="Description" aria-label="Description"
+                                                                    name="description"
+                                                                    aria-describedby="basic-icon-default-fullname2" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label"
+                                                                for="basic-icon-default-fullname">Category</label>
+                                                            <div class="input-group">
+                                                                <select class="form-select" id="select" name="extracategory"
+                                                                    id="inputGroupSelect01">
+                                                                    <option disabled selected>Select Category</option>
+                                                                    <% extradata.map((val)=>{ %>
+                                                                        <option value="<%= val._id%>">
+                                                                            <%= val.name%>
+                                                                                < <%=val.subcategoryId.name%>
+                                                                                    <
+                                                                                        <%=val.subcategoryId.categoryId.name%>
+                                                                        </option>
+                                                                        <% }) %>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label"
+                                                                for="basic-icon-default-fullname">Price</label>
+                                                            <div class="input-group input-group-merge">
+                                                                <input type="number" class="form-control"
+                                                                    id="basic-icon-default-fullname" id="price" placeholder="Price"
+                                                                    aria-label="Price" name="price"
+                                                                    aria-describedby="basic-icon-default-fullname2" />
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Add</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- / Content -->
+
+                            <!-- Footer -->
+                            <%- include('../../Partials/Footer.ejs') %>
+
+                                <!-- / Footer -->
+
+                                <div class="content-backdrop fade"></div>
+                    </div>
+                    <!-- Content wrapper -->
+            </div>
+            <!-- / Layout page -->
+        </div>
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+    <script>
+        document.getElementById('Add').onsubmit = function (event) {
+            var upload = document.getElementById('upload').value;
+            var name = document.getElementById('name').value;
+            var dsc = document.getElementById('dsc').value;
+            var select = document.getElementById('select').value;
+            var price = document.getElementById('price').value;
+            if (!upload || !name || !dsc || !select || !price) {
+                document.getElementById('error').textContent = 'Please fill out all fields.';
+                event.preventDefault();
+            } else {
+                document.getElementById('error').textContent = '';
+            }
+
+        };
+    </script>
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../assets/js/pages-account-settings-account.js"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    </div>
+    </body>
+
+    </html>

@@ -1,0 +1,54 @@
+<!-- Footer -->
+<footer class="content-footer footer bg-footer-theme">
+    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <div class="mb-2 mb-md-0">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
+            , made with ❤️ by
+            <a href="javascript:void(0);" target="" class="footer-link fw-bolder">Kalpesh Gupta</a>
+        </div>
+        <div>
+            <a href="javascript:void(0);" class="footer-link me-4" target="">License</a>
+            <a href="javascript:void(0);" target="" class="footer-link me-4">More Themes</a>
+
+            <a href="javascript:void(0);" target="" class="footer-link me-4">Documentation</a>
+
+            <a href="javascript:void(0);" target="" class="footer-link me-4">Support</a>
+        </div>
+    </div>
+</footer>
+<!-- Sweet Aleart -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Tostify -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+    document.getElementById('logout').addEventListener('click', function () {
+        Swal.fire({
+            title: 'Are you sure you want to logout?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, logout',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/logout';
+            }
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check if a success message is present in the URL query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const successMessage = urlParams.get('success');
+        if (successMessage === 'true') {
+            // Display a SweetAlert dialog for successful login
+            Swal.fire({
+                title: 'Login Successful',
+                text: 'You have been logged in successfully!',
+                icon: 'success'
+            });
+        }
+    });
+</script>
+<!-- / Footer -->

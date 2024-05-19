@@ -1,0 +1,122 @@
+<%- include('../../Partials/Header.ejs') %>
+    <div class="w-300 ms-300">
+        <!-- Layout wrapper -->
+        <div class="layout-wrapper layout-content-navbar">
+            <div class="layout-container">
+                <!-- Menu -->
+                <%- include('../../Partials/Asides.ejs') %>
+                    <!-- / Menu -->
+
+                    <!-- Layout container -->
+                    <div class="layout-page">
+                        <!-- Navbar -->
+                        <%- include('../../Partials/NavBar.ejs') %>
+
+
+                            <!-- / Navbar -->
+
+                            <!-- Content wrapper -->
+                            <div class="content-wrapper">
+                                <!-- Content -->
+
+                                <div class="container-xxl flex-grow-1 container-p-y">
+                                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Products/</span>
+                                        Edit Product</h4>
+                                    <div class="row">
+                                        <div class="col-xl">
+                                            <div class="card mb-4">
+                                                <div class="card-body">
+                                                    <form action="/editprodct/<%= product._id %>" method="POST"
+                                                        enctype="multipart/form-data">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="profileImage">Product
+                                                                Image</label>
+                                                            <input type="file"  class="form-control" id="profileImageInput"
+                                                                name="uploadImage">
+                                                            <% if(product.profileImage) { %>
+                                                                <img src="../<%= product.profileImage %>"
+                                                                    alt="<%= product.name %>" class="img-thumbnail mt-2"
+                                                                    width="150px" height="150px" id="profileImage">
+                                                                <% } %>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="name">Product Name</label>
+                                                            <input type="text" class="form-control" id="name"
+                                                                name="name" value="<%= product.name %>">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label"
+                                                                for="description">Description</label>
+                                                            <textarea class="form-control" id="description"
+                                                                name="description"><%= product.description %></textarea>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="extracategory">Extra
+                                                                Category</label>
+                                                            <select class="form-select" id="extracategory"
+                                                                name="extracategory">
+                                                                <% extradata.forEach(extra=> { %>
+                                                                    <option value="<%= extra._id %>"
+                                                                        <%=product.extraCategoryId &&
+                                                                        product.extraCategoryId._id.equals(extra._id)
+                                                                        ? 'selected' : '' %>><%= extra.name %>
+                                                                    </option>
+                                                                    <% }) %>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="price">Price</label>
+                                                            <input type="number" class="form-control" id="price"
+                                                                name="price" value="<%= product.price %>">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Update
+                                                            Product</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- / Content -->
+
+                            <!-- Footer -->
+                            <%- include('../../Partials/Footer.ejs') %>
+
+                                <!-- / Footer -->
+
+                                <div class="content-backdrop fade"></div>
+                    </div>
+                    <!-- Content wrapper -->
+            </div>
+            <!-- / Layout page -->
+        </div>
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../assets/js/pages-account-settings-account.js"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    </div>
+    </body>
+
+    </html>
